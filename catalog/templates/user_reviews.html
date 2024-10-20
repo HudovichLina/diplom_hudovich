@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Ваши отзывы</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <strong>Отзыв на:</strong> {{ review.product.name }}<br>
+            <strong>Текст отзыва:</strong> {{ review.text }}<br>
+            <strong>Дата отзыва:</strong> {{ review.created_at|date:"d.m.Y" }}<br>
+        </li>
+    {% empty %}
+        <li>Нет отзывов.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+  

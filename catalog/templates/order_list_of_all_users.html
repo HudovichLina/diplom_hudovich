@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Список заказов{% endblock %}
+
+{% block content %}
+<h2>Список всех заказов клиентов</h2>
+<ul>
+    {% for order in orders %}
+        <li>
+            <strong>Номер заказа:</strong> {{ order.id }}<br>
+            <strong>Данные о пользователе:</strong><br>
+            <strong>Имя:</strong> {{ order.user.first_name }}<br>
+            <strong>Фамилия:</strong> {{ order.user.last_name }}<br>
+            <strong>Почта:</strong> {{ order.user.email }}<br>
+            <strong>Телефон:</strong> {{ order.user.profile.phone }}<br>
+            <strong>Дата создания:</strong> {{ order.created_at }}<br>
+            <strong>Метод доставки:</strong> {{ order.get_delivery_method_display }}<br>
+            {% if order.delivery_method == 'delivery' %}
+                <strong>Адрес доставки:</strong> {{ order.delivery_address }}<br>
+            {% endif %}
+            <strong>Детали заказа:</strong>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                    <li>
+                        <strong>Продукт:</strong> {{ item.product.name }}<br>
+                        <strong>Вес:</strong> {{ item.weight }} кг<br>
+                        <strong>Количество:</strong> {{ item.quantity }} шт.<br>
+                        <strong>Пожелания по декору:</strong> {{ item.wishes }}<br>
+                        <strong>Сложность декора:</strong> {{ item.decoration }}<br>
+                        <strong>Стоимость заказа:</strong> {{ item.total_price }}<br>
+                    </li>
+                {% empty %}
+                    <li>Нет деталей заказа.</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>Нет заказов.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

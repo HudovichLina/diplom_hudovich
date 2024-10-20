@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Личный кабинет пользователя</h1>
+
+<h2>Информация о пользователе</h2>
+<form action="." method="post" enctype="multipart/form-data">
+    <table>
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+    </table>
+    <p><input type="submit" value="Сохранить изменения"></p>
+</form>
+
+<a href="{% url 'password_change' %}">Сменить пароль</a>
+
+<script>
+    $(document).ready(function(){
+        $('#phone_input').mask('+375(00)000-00-00'); 
+    });
+</script>
+{% endblock %}
+

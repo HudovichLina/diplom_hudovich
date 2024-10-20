@@ -1,0 +1,106 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Форма заказа</h1>
+<form method="post">
+{% csrf_token %}
+    <table>
+        <tr>
+            <td><label for="product-select">Товар</label></td>
+            <td>{{ form.product }}</td>  
+        </tr>
+        <tr>
+          <td>{{ form.weight.label_tag }}</td>
+          <td>{{ form.weight }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.quantity.label_tag }}</td>
+            <td>{{ form.quantity }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.decoration.label_tag }}</td>
+            <td>{{ form.decoration }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.wishes.label_tag }}</td>
+            <td>{{ form.wishes }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.delivery_method.label_tag }}</td>
+            <td>{{ form.delivery_method }}</td>
+        </tr>
+        <tr id="pickup-options" style="display: none;">
+            <td>Выберите кондитерскую:</td>
+            <td>
+                <label><input type="radio" name="bakery" value="Кондитерская №1"> Кондитерская №1</label>
+                <label><input type="radio" name="bakery" value="Кондитерская №2"> Кондитерская №2</label>
+            </td>
+        </tr>
+        <tr id="delivery-address" style="display: none;">
+            <td>{{ form.delivery_address.label_tag }}</td>
+            <td>{{ form.delivery_address }}</td>
+        </tr>
+        <tr>
+            <td>Стоимость заказа:</td>
+            <td>
+                <span id="total-cost">0.00</span> руб.
+                <button type="button" id="calculate-cost" class="button_wish">Рассчитать стоимость</button>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" class="button_wish">Отправить заказ</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    function toggleDeliveryFields() {
+        var deliveryMethod = $('#id_delivery_method').val();
+        if (deliveryMethod === 'pickup') {
+            $('#pickup-options').show();
+            $('#delivery-address').hide();
+        } else if (deliveryMethod === 'delivery') {
+            $('#pickup-options').hide();
+            $('#delivery-address').show();
+        } else {
+            $('#pickup-options').hide();
+            $('#delivery-address').hide();
+        }
+    }
+    // Инициализация
+    toggleDeliveryFields(); 
+    // Обработчик события нажатия на кнопку "Рассчитать стоимость"
+    $('#calculate-cost').click(function() {
+        var productId = $('#product-select').val();
+        var weight = $('#id_weight').val().trim();;
+        var quantity = $('#id_quantity').val().trim();;
+        var decorationId = $('#id_decoration').val();
+
+        $.ajax({
+            url: "{% url 'calculate_order_cost' %}",
+            type: "POST",
+            data: {
+                'product_id': productId,
+                'weight': weight,
+                'quantity': quantity,
+                'decoration_id': decorationId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+                console.log(data);
+                var totalPrice = parseFloat(data.total_price);
+                $('#total-cost').text(totalPrice.toFixed(2));
+            },
+            error: function(xhr) {
+                alert('Ошибка при расчете стоимости');
+            }
+        });
+    });
+    // События
+    $('#product-select').change(toggleDeliveryFields);
+    $('#id_delivery_method').change(function() {
+        toggleDeliveryFields();
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+    <h1>Пожелания</h1>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button_wish">Отправить пожелание</button>
+        </form>
+    {% else %}
+        <p>Авторизируйся, чтобы оставить пожелание</p>
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">Войти в аккаунт</a>
+    {% endif %}
+    <h2> Пожелания по кондитерским изделиям:</h2>
+    <div>
+        <div class="wish-card">
+            <table border="1px">
+                <tr>
+                    <td>№</td>
+                    <td>Категория:</td>
+                    <td>Описание:</td>
+                </tr>
+                {% for wish in wishes %}
+                <tr>
+                    <td>{{ wish.category.id }}</td>
+                    <td>{{ wish.category.name }}</td>
+                    <td>{{ wish.description }}</td>
+                    <td>
+                        <button class="like-button button_wish" data-wish-id="{{ wish.id }}">Нравится ({{ wish.likes }})</button>
+                        <button class="dislike-button button_wish" data-wish-id="{{ wish.id }}">Не нравится ({{ wish.dislikes }})</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <p>Нет пожеланий.</p>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $('.like-button').click(function() {
+            var wishId = $(this).data('wish-id');
+            var button = $(this);
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'wish_like' %}",
+                data: {
+                    id: wishId,
+                    csrfmiddlewaretoken: csrfToken 
+                },
+                success: function(data) {
+                    button.text('Нравится (' + data.likes + ')');
+                }
+            });
+        });
+
+        $('.dislike-button').click(function() {
+            var wishId = $(this).data('wish-id');
+            var button = $(this);
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'wish_dislike' %}",
+                data: {
+                    id: wishId,
+                    csrfmiddlewaretoken: csrfToken  
+                },
+                success: function(data) {
+                    button.text('Не нравится (' + data.dislikes + ')');
+                }
+            });
+        });
+    });
+    </script>
+{% endblock %}

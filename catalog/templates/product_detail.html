@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+    <p>Состав: {{ product.ingredients }}</p>
+    <p>Описание: {{ product.description }}</p>
+    <p>Цена: {{ product.price }} бел.руб. за 1кг/1шт</p>
+    <h2>Отзывы</h2>
+    <div>
+        {% for review in reviews %}
+            <div class="review">
+                <p>ID:{{ review.user.id }} | <strong>{{ review.user.first_name }}</strong></p>
+               <p>{{ review.text }}</p> 
+                <p><em>{{ review.created_at }}</em></p>
+            </div>
+        {% empty %}
+            <p>Нет отзывов.</p>
+        {% endfor %}
+    </div>
+    <h3>Написать отзыв</h3>
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button_wish">Отправить отзыв</button>
+    </form>
+    {% else %}
+    <p>Авторизируйся, чтобы оставить отзыв</p>
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">Войти в аккаунт</a>
+    {% endif %}
+    <p><a href="{% url 'product_list' product.category.slug %}">Назад</a></p>
+{% endblock %}

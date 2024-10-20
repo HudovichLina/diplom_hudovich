@@ -1,0 +1,7 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>Заказ успешно отправлен!</h1>
+    <p>Спасибо за ваш заказ. Мы свяжемся с вами в ближайшее время.</p>
+    <a href="{% url 'order_create' %}">Сделать новый заказ</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Ваши заказы</h2>
+<ul>
+    {% for order in orders %}
+        <li>
+            <strong>Номер заказа:</strong> {{ order.id }}<br>
+            <strong>Дата создания:</strong> {{ order.created_at }}<br>
+            <strong>Метод доставки:</strong> {{ order.get_delivery_method_display }}<br>
+            {% if order.delivery_method == 'delivery' %}
+                <strong>Адрес доставки:</strong> {{ order.delivery_address }}<br>
+            {% endif %}
+            <strong>Детали заказа:</strong>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                    <li>
+                        <strong>Продукт:</strong> {{ item.product.name }}<br>
+                        <strong>Вес:</strong> {{ item.weight }} кг<br>
+                        <strong>Количество:</strong> {{ item.quantity }} шт.<br>
+                        <strong>Пожелания по декору:</strong> {{ item.wishes }}<br>
+                        <strong>Сложность декора:</strong> {{ item.decoration }}<br>
+                        <strong>Стоимость заказа:</strong> {{ item.total_price }}<br>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>Нет заказов.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

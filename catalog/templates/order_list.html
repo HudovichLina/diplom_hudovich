@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Список заказов</h1>
+<table>
+    <tr>
+        <th>Товар</th>
+        <th>Вес/Количество</th>
+        <th>Пожелания</th>
+        <th>Способ доставки</th>
+        <th>Адрес доставки</th>
+        <th>Дата создания</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.product.name }}</td>
+        <td>{{ order.weight_or_quantity }}</td>
+        <td>{{ order.wishes }}</td>
+        <td>{{ order.delivery_method }}</td>
+        <td>{{ order.delivery_address }}</td>
+        <td>{{ order.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

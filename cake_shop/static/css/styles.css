@@ -1,0 +1,114 @@
+/* .sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+  } */
+
+
+body {
+  background-image: url('../photo_2024-10-06_00.03.08.jpg');
+  background-size: cover; /* Заполняет весь экран */
+  background-position: center; /* Центрирует изображение */
+  background-attachment: fixed;
+  background-repeat: no-repeat; /* Не повторяет изображение */
+  height: 100vh; /* Задает высоту в 100% от высоты окна */
+  margin: 0; /* Убирает отступы */
+}
+
+input,
+textarea,
+select {
+        width: 70%; /* Занимает всю ширину контейнера */
+        padding: 10px; /* Отступы внутри полей */
+        margin: 5px 0; /* Отступы сверху и снизу */
+        border: 1px solid #ddd; /* Светлая граница */
+        border-radius: 5px; /* Закругление границ */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Небольшая тень */
+        transition: border-color 0.3s; /* Плавный переход цвета границы */
+    }
+
+    /* Эффект при наведении */
+    input,
+    textarea:focus,
+    select:focus {
+        border-color: #f66a8b; /* Изменение цвета границы при фокусировке */
+        outline: none; /* Убираем стандартный контур */
+    }
+
+.button_wish {
+  margin: 2px;
+  background-color: #f66a8b; /* Нежно-розовый цвет */
+  color: white; /* Белый текст */
+  border: none; /* Убираем стандартные границы */
+  border-radius: 5px; /* Закругление границ кнопок */
+  padding: 10px 15px; /* Отступы внутри кнопок */
+  cursor: pointer; /* Указатель при наведении */
+  transition: background-color 0.3s; /* Плавный переход цвета */
+}
+
+.button_wish:hover {
+  background-color: #ff9999; /* Более темный розовый при наведении */
+}
+
+.content {
+  background-color: rgba(211, 211, 211, 0.6); /* Светло-серый фон с 60% прозрачностью */
+  border: 1px solid #ccc; /* Цвет и стиль границы */
+  border-radius: 10px; /* Закругленные границы */
+  padding: 20px; /* Отступы внутри блока */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для улучшения визуального восприятия (по желанию) */
+}
+
+.form_login {
+  margin: 20px; /* Отступы вокруг формы */
+}
+
+.table_login {
+  border-collapse: collapse; /* Убирает пробелы между ячейками */
+}
+
+.tr_login {
+  margin-bottom: 10px; /* Отступы между строками таблицы */
+}
+
+.td_login {
+  padding: 10px; /* Отступы внутри ячеек таблицы */
+}
+
+.input_login {
+  display: block; /* Делает кнопку блочным элементом */
+  margin: 20px 100px; /* Центрирует кнопку */
+  padding: 10px 20px; /* Отступы внутри кнопки */
+  background-color: #f66a8b; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  border: none; /* Убирает границу */
+  border-radius: 5px; /* Закругленные углы кнопки */
+  cursor: pointer; /* Указывает, что кнопка кликабельна */
+}
+
+.input_login:hover {
+  background-color: #e4476c; /* Цвет фона кнопки при наведении */
+}
+
+.order-button {
+  position: fixed; /* Положение фиксированное */
+  bottom: 20px; /* Расположение от нижнего края */
+  right: 20px; /* Расположение от правого края */
+  background-color: #f66a8b; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  padding: 10px 20px; /* Отступы внутри кнопки */
+  border: none; /* Убирает границу */
+  border-radius: 5px; /* Закругленные углы */
+  text-align: center; /* Центрирование текста */
+  text-decoration: none; /* Убирает подчеркивание */
+  cursor: pointer; /* Указывает, что элемент кликабельный */
+  font-size: 16px; /* Размер шрифта */
+}
+
+.order-button:hover {
+  background-color: #e4476c; /* Цвет фона при наведении */
+}
+
+.product-image {
+  max-width: 50%;  /* Устанавливаем максимальную ширину изображения на 33% */
+  height: auto;     /* Высота будет автоматически подстраиваться под ширину */
+}
