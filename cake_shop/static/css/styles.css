@@ -112,3 +112,325 @@ select {
   max-width: 50%;  /* Устанавливаем максимальную ширину изображения на 33% */
   height: auto;     /* Высота будет автоматически подстраиваться под ширину */
 }
+
+.messages {
+  list-style-type: none; /* Убираем маркеры списка */
+  padding: 0; /* Убираем отступы */
+}
+
+.messages li {
+  padding: 10px; /* Отступы для сообщений */
+  margin-bottom: 10px; /* Отступ между сообщениями */
+  border-radius: 5px; /* Закругленные углы */
+}
+
+.messages .success {
+  background-color: #d4edda; /* Светло-зеленый фон для успешных сообщений */
+  color: #155724; /* Темно-зеленый текст */
+  border: 1px solid #c3e6cb; /* Светло-зеленая рамка */
+}
+
+.messages .error {
+  background-color: #f8d7da; /* Светло-красный фон для ошибок */
+  color: #721c24; /* Темно-красный текст */
+  border: 1px solid #f5c6cb; /* Светло-красная рамка */
+}
+
+.title {
+  font-size: 48px;
+  color: #ff6b6b;
+  text-shadow: 2px 2px 4px rgba(10, 10, 10, 0.3);
+}
+
+.description {
+  font-size: 20px;
+  color: #000000;
+  margin: 10px 0;
+}
+
+.contact {
+  margin: 20px 0;
+}
+
+.order-button_1 {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  border-radius: 5px; /* Закругленные углы */
+  text-align: center; /* Центрирование текста */
+  text-decoration: none; /* Убирает подчеркивание */
+}
+
+.order-button_1:hover {
+  background-color: #ff4c4c;
+}
+
+.phone, .telegram {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.menu {
+  margin: 40px 0;
+}
+
+.menu-title {
+  font-size: 28px;
+  color: #ff4c4c;
+}
+
+.menu-description {
+  width: 30%;
+  font-size: 16px;
+  color: #000000;
+}
+
+.product-categories {
+  display: flex; /* Используем Flexbox для размещения карточек в ряд */
+  justify-content: space-between; /* Распределяем карточки по горизонтали с равными промежутками */
+  margin-top: 20px; /* Отступ сверху для разделения с предыдущим элементом */
+}
+
+.category-item {
+  flex: 1; /* Каждая карточка будет занимать равное пространство */
+  margin: 0 10px; /* Отступы между карточками */
+  padding: 20px; /* Внутренние отступы для карточки */
+  border: 1px solid #ccc; /* Рамка для карточки */
+  border-radius: 8px; /* Скругление углов */
+  text-align: center; /* Выравнивание текста по центру */
+  background-color: #f9f9f9; /* Цвет фона карточки */
+  transition: box-shadow 0.3s; /* Плавный переход для эффекта наведения */
+}
+
+.category-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Эффект тени при наведении */
+  transform: scale(1.05)
+}
+
+.category-item a {
+  text-decoration: none; /* Убираем подчеркивание у ссылки */
+  color: #333; /* Цвет текста ссылки */
+  font-weight: bold; /* Жирный шрифт для названия */
+}
+
+.category-item a {
+  text-decoration: none;
+  color: #ff6b6b;
+  transition: color 0.3s;
+}
+
+.category-item a:hover {
+  color: #ff4c4c;
+}
+
+.why-choose {
+  margin: 40px 0;
+}
+
+.why-choose-title {
+  font-size: 28px;
+  color: #333;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 220px;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  font-size: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.1;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 10px 0;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #555;
+}
+
+.div_1 {
+  width: 30%; /* Задаем ширину 30% */
+  color: #080808; /* Устанавливаем цвет текста */
+}
+
+.about-section {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+.about-section1 {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+.about-section img {
+  width: 40%; /* Задайте нужный размер изображения */
+  height: 400px; /* Установите фиксированную высоту для обрезки */
+  object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+  border-radius: 15px; /* Скругление углов */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень от изображения */
+  transition: transform 0.3s; /* Анимация увеличения */
+}
+.about-section1 img {
+  width: 30%; /* Задайте нужный размер изображения */
+  height: 400px; /* Установите фиксированную высоту для обрезки */
+  object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+  border-radius: 15px; /* Скругление углов */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень от изображения */
+  transition: transform 0.3s; /* Анимация увеличения */
+}
+.about-section img:hover {
+  transform: scale(1.05); /* Увеличение при наведении */
+}
+.about-section1 img:hover {
+  transform: scale(1.05); /* Увеличение при наведении */
+}
+.about-section-text {
+  width: 50%;
+  padding: 20px;
+}
+
+.about-title {
+  font-size: 2em; /* Увеличенный шрифт для заголовков */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Тень от текста */
+  margin-bottom: 10px;
+}
+
+.about-description {
+  font-size: 1.2em; /* Размер текста описания */
+}
+
+
+.contact-section {
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Отступ между карточками */
+}
+
+.contact-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px; /* Ширина карточки */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.contact-card:hover {
+  transform: scale(1.05); /* Увеличение карточки при наведении */
+}
+
+.contact-card h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  margin: 5px 0;
+}
+
+.wish-card {
+  background-color: rgba(255, 182, 193, 0.7); /* Бледно-розовый фон с прозрачностью 70% */
+  border-radius: 10px; /* Скругленные углы */
+  padding: 15px; /* Внутренние отступы */
+  margin-bottom: 15px; /* Отступ между карточками */
+}
+
+.wish-card table {
+  width: 100%; /* Ширина таблицы 100% */
+  border-collapse: collapse; /* Убирает границы между ячейками */
+}
+
+.wish-card td {
+  padding: 10px; /* Внутренние отступы в ячейках */
+  text-align: justify; /* Выравнивание текста по ширине */
+}
+
+/* Установка ширины для колонок */
+.wish-card td:nth-child(1) {
+  width: 5%; /* Узкая первая колонка */
+}
+
+.wish-card td:nth-child(2) {
+  width: 10%; /* Широкая вторая колонка */
+}
+
+.wish-card td:nth-child(3) {
+  width: 50%; /* Самая широкая третья колонка */
+}
+
+.wish-card td:nth-child(4) {
+  width: 13%; /* Узкая четвертая колонка */
+}
+
+/* Стили для кнопок */
+.wish-card button {
+  margin: 5px; /* Отступ для кнопок */
+  cursor: pointer; /* Курсор при наведении на кнопки */
+  display: inline-block; /* Чтобы кнопки были в одной строке */
+}
+
+.card_order_list {
+  background-color: rgba(255, 211, 218, 0.7); /* Белый фон */
+  border-radius: 10px; /* Скругленные углы */
+  padding: 15px; /* Внутренние отступы */
+  margin-bottom: 20px; /* Отступ между карточками */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для карточки */
+  color: black; /* Черный текст */
+}
+
+.order_item {
+  margin-top: 10px; /* Отступ сверху для каждого товара */
+  padding: 10px; /* Внутренние отступы для товара */
+  border: 1px solid #ccc; /* Граница для товара */
+  border-radius: 5px; /* Скругленные углы для товара */
+}
+
+.order_item strong {
+  display: block; /* Каждый заголовок в новой строке */
+  margin-bottom: 5px; /* Отступ между заголовком и значением */
+}

@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from .forms import RegistrationForm, UserEditForm, ProfileEditForm 
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
+from django.contrib import messages
 
 def register_view(request):
     if request.method == 'POST':
@@ -33,6 +34,7 @@ def profile_edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            messages.success(request, 'Профиль успешно изменен.')
             return redirect('user_profile')
     #  добавить сообщение об успехе
     return render(request,

@@ -9,6 +9,7 @@ urlpatterns = [
         path('admin/', admin.site.urls),
         path('catalog/', include('catalog.urls')),
         path('account/', include('account.urls')),
+         path('bot/', include('telegram_bot.urls')),
         path('about/', AboutView.as_view(), name='about'),
         path('contacts/', ContactView.as_view(), name='contacts'),
         path('dreamtaste', views.home_page, name='home_page'),  

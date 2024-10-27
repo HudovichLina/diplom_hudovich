@@ -11,7 +11,11 @@ class OrderForm(forms.ModelForm):
     weight = forms.FloatField(required=False, label="Вес (кг)", min_value=1)
     quantity = forms.IntegerField(required=False, label="Количество (шт)", min_value=1)
     decoration = forms.ModelChoiceField(queryset=Decoration.objects.all(), label="Сложность декора")
-    wishes = forms.CharField(required=False, label="Пожелания по декору")
+    wishes = forms.CharField(
+        required=False, 
+        label="Пожелания по декору",
+        widget=forms.Textarea(attrs={'rows': 5, 'cols': 20})
+    )
     
     delivery_method = forms.ChoiceField(
         choices=[('pickup', 'Самовывоз'), ('delivery', 'Доставка')],

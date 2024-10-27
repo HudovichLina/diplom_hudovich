@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<div>
+    {% if searched %}
+        <h1>Результаты поиска для "{{ searched }}":</h1>
+        <div class="row">
+            {% if products_results %}
+                {% for result in products_results %}
+                <div class="col-md-4">  <!-- Колонка для карточки продукта -->
+                    <div class="card mb-4">
+                        <img src="{{ result.image.url }}" alt="{{ result.name }}" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'product_detail' result.slug %}">{{ result.name }}</a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Категория: {{ result.category.name }}</h6>
+                            <p class="card-text">Ингредиенты: {{ result.ingredients }}</p>
+                            <p class="card-text">Описание: {{ result.description }}</p>
+                            <p class="card-text">Цена: {{ result.price }}₽</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h2>Ничего не найдено. Попробуйте другой запрос.</h2>
+            {% endif %}
+        </div>
+    {% else %}
+        <h2>Введите поисковый запрос и попробуйте снова.</h2>
+    {% endif %}
+</div>
+{% endblock %}

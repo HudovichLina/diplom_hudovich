@@ -1,9 +1,32 @@
 {% extends "base_generic.html" %}
-    
+{% load static %}   
 {% block content %}
-<h1>О кондитерской</h1>
+<div class="about-section">
+    <div class="about-section-text">
+        <h2 class="about-title">DreamTaste - больше чем кофейня</h2>
+        <p class="about-description">У нас вы сможете насладиться не только ароматным кофе, приготовленным профессиональными бариста, но и отведать самые вкусные десерты, которые точно пошевелят вашими вкусовыми рецепторами.</p>
+    </div>
+    <img src="{% static 'css/1b0e5a1992fb31445f35bb3016b44a25.jpg' %}" alt="Кофейня DreamTaste">
+</div>
 
-<p>Информация</p>
+<!-- Блок 2 -->
+<div class="about-section">
+    <img src="{% static 'css/IMG_5257.jpg' %}" alt="Оригинальные десерты DreamTaste">
+    <div class="about-section-text">
+        <h2 class="about-title">DreamTaste - оригинальные десерты</h2>
+        <p class="about-description">Наша кондитерская известна своими уникальными и качественными десертами, которые сделаны с любовью и творческим подходом. Мы используем только свежие ингредиенты и отборные продукты, чтобы наши сладости были не только вкусными, но и полезными для вашего организма.</p>
+    </div>
+</div>
+
+<!-- Блок 3 -->
+<div class="about-section1">
+    <div class="about-section-text">
+        <h2 class="about-title">DreamTaste - торты с душой</h2>
+        <p class="about-description">Мы создаем торты по вашим индивидуальным заказам, учитывая ваши пожелания и предпочтения. Наша команда кондитеров готова воплотить даже самые смелые идеи, чтобы ваш торт стал настоящим произведением искусства и стал украшением вашего праздника.</p>
+    </div>
+    <img src="{% static 'css/photo_2024-10-23 14.06.24.jpeg' %}" alt="Торты DreamTaste">
+</div>
+</div>
 {% endblock %}
 
     

@@ -72,8 +72,12 @@ $(document).ready(function() {
     // Обработчик события нажатия на кнопку "Рассчитать стоимость"
     $('#calculate-cost').click(function() {
         var productId = $('#product-select').val();
-        var weight = $('#id_weight').val().trim();;
-        var quantity = $('#id_quantity').val().trim();;
+        var weight = $('#id_weight').val().trim();
+        if (!weight || isNaN(parseFloat(weight)) || parseFloat(weight) <= 0) {
+            alert('Введите корректный вес');
+            return;
+        }
+        var quantity = $('#id_quantity').val().trim();
         var decorationId = $('#id_decoration').val();
 
         $.ajax({

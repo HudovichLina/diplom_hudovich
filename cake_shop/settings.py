@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('DJANGO_SECRET_KEY')
+TELEGRAM_BOT_TOKEN = config('TELEGRAM_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,7 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+    'telegram_bot.apps.TelegramBotConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -48,7 +51,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'cake_shop', 'templates'),
                  os.path.join(BASE_DIR, 'account', 'templates'),
-                 os.path.join(BASE_DIR, 'catalog', 'templates')
+                 os.path.join(BASE_DIR, 'catalog', 'templates'),
+                 os.path.join(BASE_DIR, 'telegram_bot')
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -55,7 +55,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Заказ #{self.id}"
+        return f"Заказ #{self.id} от {self.user.username} - {self.delivery_method} ({self.created_at.strftime('%Y-%m-%d %H:%M')})"
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -83,7 +83,7 @@ class Review(models.Model):
 
 
 class Wish(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishes")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
     likes = models.PositiveIntegerField(default=0)

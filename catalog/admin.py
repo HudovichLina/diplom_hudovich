@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category', 'price' )
     list_editable = ['price']  
     prepopulated_fields = {'slug': ('name',)}
-    # search_fields = ('name', 'description','slug', 'price') 
+    search_fields = ('name', 'description','slug', 'price') 
 
 @admin.register(Decoration)
 class DecorationAdmin(admin.ModelAdmin):

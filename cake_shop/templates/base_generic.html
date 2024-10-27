@@ -69,12 +69,20 @@
           {% endif %}
       </li>
     </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" role="search" method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
   </div>
 </nav>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <div class="container-fluid">
   <div class="row">
     <div class="content">

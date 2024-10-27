@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
+import re
 
 from .models import Category, Product, Order, OrderItem, Wish, Review, Vote, Decoration
 from .forms import OrderForm, WishForm, ReviewForm
@@ -85,10 +87,10 @@ def calculate_order_cost(request):
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         weight = request.POST.get('weight')
+        if not weight or Decimal(weight) <= 0:
+            return JsonResponse({'error': 'Invalid weight'}, status=400)
         quantity = request.POST.get('quantity')
         decoration_id = request.POST.get('decoration_id')
-        
-        print(f"Product ID: {product_id}, Weight: {weight}, Quantity: {quantity}, Decoration ID: {decoration_id}")  # Отладка
         
         product = Product.objects.get(id=product_id)
         decoration = Decoration.objects.get(id=decoration_id) if decoration_id else None
@@ -96,9 +98,14 @@ def calculate_order_cost(request):
         product_price = product.price
         decoration_price = decoration.price if decoration else 0
 
+        print(f"Product ID: {product_id}, Category: {product.category.id}, Weight: {weight}, Quantity: {quantity}, Decoration ID: {decoration_id}")  # Отладка
+
         # Логика расчета стоимости
-        if product.category == 'Торты':
-            total_price = decoration_price + (product_price * Decimal(weight) * Decimal(quantity))
+        if product.category.name == 'Торты':
+            try:
+                total_price = decoration_price + (product_price * Decimal(weight) * Decimal(quantity))
+            except InvalidOperation:
+                return JsonResponse({'error': 'Invalid weight or quantity'}, status=400)
         else:
             total_price = decoration_price + (product_price * int(quantity))
 
@@ -135,7 +142,7 @@ def wish_list(request):
     wishes = Wish.objects.all()
     return render(request, 'wish_list.html', {'form': form, 'wishes': wishes})
 
-
+@login_required
 def wish_like(request):
     if request.method == 'POST':
         wish_id = request.POST.get('id')
@@ -159,6 +166,7 @@ def wish_like(request):
         wish.save()
         return JsonResponse({'likes': wish.likes, 'dislikes': wish.dislikes})
 
+@login_required
 def wish_dislike(request):
     if request.method == 'POST':
         wish_id = request.POST.get('id')
@@ -180,3 +188,27 @@ def wish_dislike(request):
 
         wish.save()
         return JsonResponse({'likes': wish.likes, 'dislikes': wish.dislikes})
+    
+def search(request):
+    products_results = []  
+    searched = ''  
+    if request.method == "POST":
+        searched = request.POST.get('searched', '').lower().strip() 
+        if searched:  
+            # Разделяем поисковый запрос на отдельные слова
+            search_terms = re.findall(r'(?i)\b\w+\b', searched)  # findall для извлечения слов
+            queries = Q()
+            for term in search_terms:
+                queries |= (
+                    Q(name__icontains=term) |  # Поиск по имени продукта
+                    Q(category__name__icontains=term) |  # Поиск по имени категории
+                    Q(ingredients__icontains=term) |  # Поиск по ингредиентам
+                    Q(description__icontains=term)  # Поиск по описанию
+                )
+            products_results = Product.objects.filter(queries) 
+    context = {
+        'searched': searched,
+        'products_results': products_results
+    }
+    return render(request, "search/search_results.html", context=context)
+

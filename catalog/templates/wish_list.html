@@ -11,10 +11,11 @@
         <p>Авторизируйся, чтобы оставить пожелание</p>
         <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">Войти в аккаунт</a>
     {% endif %}
+    <br>
     <h2> Пожелания по кондитерским изделиям:</h2>
     <div>
         <div class="wish-card">
-            <table border="1px">
+            <table border="0">
                 <tr>
                     <td>№</td>
                     <td>Категория:</td>
@@ -22,7 +23,7 @@
                 </tr>
                 {% for wish in wishes %}
                 <tr>
-                    <td>{{ wish.category.id }}</td>
+                    <td>{{ wish.id }}</td>
                     <td>{{ wish.category.name }}</td>
                     <td>{{ wish.description }}</td>
                     <td>

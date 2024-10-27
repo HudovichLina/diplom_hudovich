@@ -45,13 +45,10 @@ class RegistrationForm(UserCreationForm):
         user.username = self.cleaned_data['email']
         if commit:
             user.save()
-            user_profile, created = UserProfile.objects.get_or_create(
-               user=user,
-               defaults={
-                   'phone_number': self.cleaned_data.get('phone'),
-                   'date_of_birth': self.cleaned_data.get('date_of_birth')
-               }
-           )
+            user_profile = user.userprofile  # Получаем профиль пользователя
+            user_profile.phone_number = self.cleaned_data.get('phone')
+            user_profile.date_of_birth = self.cleaned_data.get('date_of_birth')
+            user_profile.save()
         return user
     
 class UserEditForm(forms.ModelForm):
@@ -85,3 +82,7 @@ class ProfileEditForm(forms.ModelForm):
 
         if UserProfile.objects.exclude(user=self.instance.user).filter(phone_number=phone).exists():
             self.add_error('phone_number', 'Пользователь с таким номером телефона уже существует.')
+
+
+
+            
