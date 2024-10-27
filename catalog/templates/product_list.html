@@ -1,21 +1,20 @@
 {% extends "base_generic.html" %}
-    
 {% block content %}
     <h1>{{ category.name }}</h1>
-    <table>
+    <div class="product-list">
         {% for product in products %}
-            <tr>
-                <td>
+            <div class="product-card-list">
+                <div class="product-content-list">
                     <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a><br>
-                    Состав: {{ product.ingredients }}<br>
-                    Описание: {{ product.description|slice:":50" }}...<br>
-                    Цена: {{ product.price }} руб.
-                </td>
-                <td>
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 150px; max-height: 150px;">
-                </td>
-            </tr>
+                    <p>Состав: {{ product.ingredients }}</p>
+                    <p>Описание: {{ product.description|slice:":50" }}...</p>
+                    <p>Цена: {{ product.price }} руб.</p>
+                </div>
+                <div class="product-image-list">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </div>
+            </div>
         {% endfor %}
-    </table>
+    </div>
     <a href="{% url 'category_list' %}">Назад</a>
 {% endblock %}

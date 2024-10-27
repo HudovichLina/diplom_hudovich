@@ -59,7 +59,7 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, default="1")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     weight = models.FloatField(null=True, blank=True) 
     quantity = models.PositiveIntegerField(null=True, blank=True) 
     decoration = models.ForeignKey(Decoration, null=True, blank=True, on_delete=models.SET_NULL)
@@ -73,9 +73,9 @@ class OrderItem(models.Model):
     
     
 class Review(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews', default="2")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(default="null")
+    text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

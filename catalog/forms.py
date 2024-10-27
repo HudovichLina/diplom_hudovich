@@ -61,5 +61,8 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ['text']
         widgets = {
-            'text': forms.Textarea(attrs={'placeholder': 'Ваш отзыв...'}),
+            'text': forms.Textarea(attrs={'placeholder': 'Ваш отзыв...', 'rows': 10, 'cols': 40}),
+        }
+        labels = {
+            'text': 'Текст',  
         }
