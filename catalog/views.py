@@ -98,7 +98,7 @@ def calculate_order_cost(request):
         product_price = product.price
         decoration_price = decoration.price if decoration else 0
 
-        print(f"Product ID: {product_id}, Category: {product.category.id}, Weight: {weight}, Quantity: {quantity}, Decoration ID: {decoration_id}")  # Отладка
+        # print(f"Product ID: {product_id}, Category: {product.category.id}, Weight: {weight}, Quantity: {quantity}, Decoration ID: {decoration_id}")  # Отладка
 
         # Логика расчета стоимости
         if product.category.name == 'Торты':
@@ -190,25 +190,27 @@ def wish_dislike(request):
         return JsonResponse({'likes': wish.likes, 'dislikes': wish.dislikes})
     
 def search(request):
-    products_results = []  
-    searched = ''  
+    products_results = []
+    searched = ''
     if request.method == "POST":
-        searched = request.POST.get('searched', '').lower().strip() 
-        if searched:  
-            # Разделяем поисковый запрос на отдельные слова
-            search_terms = re.findall(r'(?i)\b\w+\b', searched)  # findall для извлечения слов
+        searched = request.POST.get('searched', '').strip()
+        if searched:
+            search_terms = searched.split()
             queries = Q()
             for term in search_terms:
-                queries |= (
-                    Q(name__icontains=term) |  # Поиск по имени продукта
-                    Q(category__name__icontains=term) |  # Поиск по имени категории
-                    Q(ingredients__icontains=term) |  # Поиск по ингредиентам
-                    Q(description__icontains=term)  # Поиск по описанию
+                term_query = (
+                    Q(name__icontains=term) |
+                    Q(category__name__icontains=term) |
+                    Q(ingredients__icontains=term) |
+                    Q(description__icontains=term)
                 )
-            products_results = Product.objects.filter(queries) 
+                queries &= term_query
+            products_results = Product.objects.filter(queries).distinct()
     context = {
         'searched': searched,
         'products_results': products_results
     }
+    
     return render(request, "search/search_results.html", context=context)
+
 

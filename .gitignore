@@ -2,7 +2,9 @@ venv/
 .env.local
 .env
 **/migrations/
-# db.sqlite3
+db.sqlite3
+# **/media/
+# **/staticfiles/
 **/__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/

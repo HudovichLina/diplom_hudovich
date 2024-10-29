@@ -5,7 +5,7 @@
         {% for product in products %}
             <div class="product-card-list">
                 <div class="product-content-list">
-                    <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a><br>
+                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
                     <p>Состав: {{ product.ingredients }}</p>
                     <p>Описание: {{ product.description|slice:":50" }}...</p>
                     <p>Цена: {{ product.price }} руб.</p>

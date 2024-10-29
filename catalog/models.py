@@ -98,4 +98,5 @@ class Vote(models.Model):
     vote_type = models.CharField(max_length=10)  # 'like' или 'dislike'
     
     class Meta:
-        unique_together = (('user', 'wish'),)  # Уникальное сочетание пользователь-пожелание
+        unique_together = (('user', 'wish', 'vote_type'),)  # Уникальное сочетание пользователь-пожелание-тип голоса 
+    

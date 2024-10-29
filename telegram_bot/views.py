@@ -8,6 +8,5 @@ import asyncio
 
 class StartBotView(View):
     async def get(self, request):
-        # Запустите бота асинхронно
-        asyncio.create_task(main())  # Используем create_task для запуска асинхронной функции
+        asyncio.create_task(main()) 
         return JsonResponse({'status': 'Бот запущен'})

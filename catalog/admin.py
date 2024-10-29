@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Decoration 
-# Order, OrderItem, Review, Wish
+from .models import Category, Product, Decoration, Order, OrderItem, Review, Wish
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -19,26 +18,21 @@ class ProductAdmin(admin.ModelAdmin):
 class DecorationAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')  
 
-# @admin.register(Order)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'delivery_method', 'created_at')  # Поля для отображения
-#     list_filter = ('delivery_method',)  # Фильтры по способу доставки
-#     # search_fields = ('user__username',)  # Поиск по имени пользователя
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('user', 'delivery_method', 'created_at')
+    list_filter = ('delivery_method',)
 
-# # Регистрация модели OrderItem
-# @admin.register(OrderItem)
-# class OrderItemAdmin(admin.ModelAdmin):
-#     list_display = ('order', 'product', 'quantity', 'total_price')  # Поля для отображения
-#     search_fields = ('order__id', 'product__name')  # Поиск по заказу и продукту
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('order', 'product', 'quantity', 'total_price') 
+    search_fields = ('order__id', 'product__name') 
 
-# # Регистрация модели Review
-# @admin.register(Review)
-# class ReviewAdmin(admin.ModelAdmin):
-#     list_display = ('product', 'user', 'created_at')  # Поля для отображения
-#     search_fields = ('product__name', 'user__username')  # Поиск по продукту и пользователю
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'user', 'created_at') 
+    search_fields = ('product__name',)  
 
-# # Регистрация модели Wish
-# @admin.register(Wish)
-# class WishAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'category', 'description', 'likes', 'dislikes')  # Поля для отображения
-#     search_fields = ('user__username', 'description')  # Поиск по пользователю и описанию
+@admin.register(Wish)
+class WishAdmin(admin.ModelAdmin):
+    list_display = ('user', 'category', 'description', 'likes', 'dislikes') 
