@@ -9,10 +9,12 @@ import re
 from .models import Category, Product, Order, OrderItem, Wish, Review, Vote, Decoration
 from .forms import OrderForm, WishForm, ReviewForm
 
+# Список категорий
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
 
+# Список изделий определенной категории
 def product_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     categories = Category.objects.all()
@@ -23,6 +25,7 @@ def product_list(request, category_slug):
                    'categories': categories,
                    'products': products})
 
+# Детальная информация об изделии, функционал отзывов
 def product_detail(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
     reviews = product.reviews.all()
@@ -44,6 +47,7 @@ def product_detail(request, product_slug):
                    'reviews': reviews,
                    'form': form})
 
+# Создание заказа
 @login_required
 def order_create(request):
     if request.method == 'POST':
@@ -78,10 +82,11 @@ def order_create(request):
         form = OrderForm()
     return render(request, 'order_form.html', {'form': form})
 
-
+# Успешная отправка формы заказа
 def order_success(request):
     return render(request, 'order_success.html')
 
+# Расчет стоимости заказа
 @login_required
 def calculate_order_cost(request):
     if request.method == 'POST':
@@ -112,22 +117,25 @@ def calculate_order_cost(request):
         return JsonResponse({'total_price': total_price.quantize(Decimal('0.01'))})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+# Список заказов всех пользователей для администратора
 @staff_member_required
 def order_list_of_all_users(request):
     orders = Order.objects.all()
     return render(request, 'order_list_of_all_users.html', {'orders': orders})
 
+# Список заказов конкретного пользователя (информация в личном кабинете)
 @login_required
 def order_list_user_self(request):
     orders = Order.objects.filter(user=request.user).prefetch_related('orderitem_set')
     return render(request, 'order_list_user_self.html', {'orders': orders})
 
+# Список отзывов конкретного пользователя (информация в личном кабинете)
 @login_required
 def user_reviews(request):
     reviews = Review.objects.filter(user=request.user)
     return render(request, 'user_reviews.html', {'reviews': reviews})
 
-
+# Отправка пожелания и демонстрация всех пожеланий пользователей
 def wish_list(request):
     if request.method == 'POST':
         form = WishForm(request.POST)
@@ -142,6 +150,8 @@ def wish_list(request):
     wishes = Wish.objects.all()
     return render(request, 'wish_list.html', {'form': form, 'wishes': wishes})
 
+# Система голосования за изделие в пожелании
+# likes
 @login_required
 def wish_like(request):
     if request.method == 'POST':
@@ -166,6 +176,7 @@ def wish_like(request):
         wish.save()
         return JsonResponse({'likes': wish.likes, 'dislikes': wish.dislikes})
 
+# dislikes
 @login_required
 def wish_dislike(request):
     if request.method == 'POST':
@@ -188,7 +199,8 @@ def wish_dislike(request):
 
         wish.save()
         return JsonResponse({'likes': wish.likes, 'dislikes': wish.dislikes})
-    
+
+# Поиск по сайту   
 def search(request):
     products_results = []
     searched = ''

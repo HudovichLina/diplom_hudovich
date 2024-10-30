@@ -1,6 +1,7 @@
 from django import forms
 from .models import Order, OrderItem, Decoration, Product, Wish, Review
 
+# Форма Заказа
 class OrderForm(forms.ModelForm):
     
     product = forms.ModelChoiceField(
@@ -44,6 +45,7 @@ class OrderForm(forms.ModelForm):
             self.fields['quantity'].widget.attrs['readonly'] = False  # Разрешаем ввод количества
         return cleaned_data
 
+# Форма Пожелания о включении продукции
 class WishForm(forms.ModelForm):
     class Meta:
         model = Wish
@@ -56,6 +58,7 @@ class WishForm(forms.ModelForm):
             'description': 'Описание изделия',  
         }
 
+# Форма для отправки Отзыва
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

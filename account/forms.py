@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import re
 from .models import UserProfile
 
+# Форма регистрации нового пользователя
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Email')
     phone = forms.CharField(
@@ -45,12 +46,13 @@ class RegistrationForm(UserCreationForm):
         user.username = self.cleaned_data['email']
         if commit:
             user.save()
-            user_profile = user.userprofile  # Получаем профиль пользователя
+            user_profile = user.userprofile 
             user_profile.phone_number = self.cleaned_data.get('phone')
             user_profile.date_of_birth = self.cleaned_data.get('date_of_birth')
             user_profile.save()
         return user
-    
+
+# Форма изменения данных пользователя
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
@@ -62,6 +64,7 @@ def clean_email(self):
             raise forms.ValidationError(_('Пользователь с таким email уже существует.'))
         return email
 
+# Форма изменения профиля пользователя
 class ProfileEditForm(forms.ModelForm):
  
     class Meta:

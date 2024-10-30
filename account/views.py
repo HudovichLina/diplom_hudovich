@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib import messages
 
+# Регистрация нового пользователя
 def register_view(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -18,6 +19,7 @@ def register_view(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
+# Изменение данных профиля
 @login_required
 def profile_edit(request):
     try:

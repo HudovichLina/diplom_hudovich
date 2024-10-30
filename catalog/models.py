@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+# Модель Категории продукции
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, unique=True, default="default-slug") 
@@ -14,6 +15,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+# Модель Продукта (изделия)
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=100, db_index=True)
@@ -35,6 +37,7 @@ class Product(models.Model):
         return reverse('product_detail',
                         args=[self.slug])
 
+# Модель Декора
 class Decoration(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
@@ -47,7 +50,7 @@ class Decoration(models.Model):
     def __str__(self):
         return f"{self.name} ({self.description}) - {self.price} бел.руб."
     
-
+# Модель Заказа
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     delivery_method = models.CharField(max_length=50, choices=[('pickup', 'Самовывоз'), ('delivery', 'Доставка')])
@@ -56,7 +59,8 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ #{self.id} от {self.user.username} - {self.delivery_method} ({self.created_at.strftime('%Y-%m-%d %H:%M')})"
-    
+
+# Модель позиции в заказе  
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -71,7 +75,7 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.product.name} in {self.order}"
     
-    
+# Модель Отзыв  
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -81,7 +85,7 @@ class Review(models.Model):
     def __str__(self):
         return f"Отзыв от {self.user.username} о {self.product.name}"
 
-
+# Модель Пожеланий
 class Wish(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishes")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -91,7 +95,8 @@ class Wish(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.description[:20]}"
-
+    
+# Модель Голосов для реализации системы голосования в Разделе "Пожелания"
 class Vote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     wish = models.ForeignKey(Wish, on_delete=models.CASCADE)
