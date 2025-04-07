@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 import re
+import pandas as pd
+from django.shortcuts import render
 
 from .models import Category, Product, Order, OrderItem, Wish, Review, Vote, Decoration
 from .forms import OrderForm, WishForm, ReviewForm
@@ -12,7 +14,13 @@ from .forms import OrderForm, WishForm, ReviewForm
 # Список категорий
 def category_list(request):
     categories = Category.objects.all()
-    return render(request, 'category_list.html', {'categories': categories})
+    products = Product.objects.all()
+    products_df = pd.DataFrame(list(products.values()))
+    total_products = products_df.shape[0] #забираем из кортежа количество строк
+    return render(request, 'category_list.html', {
+        'categories': categories,
+        'total_products': total_products  # Передаем общее количество товаров в контекст
+    })
 
 # Список изделий определенной категории
 def product_list(request, category_slug):

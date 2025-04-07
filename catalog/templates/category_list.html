@@ -7,4 +7,5 @@
             <li><a href="{% url 'product_list' category.slug %}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
+    <h2>Общее количество реализуемых товаров: {{ total_products }}</h2>
 {% endblock %}
